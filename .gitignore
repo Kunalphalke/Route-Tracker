@@ -1,0 +1,7 @@
+﻿# Secrets and deployment state
+.env
+.env.*
+.vercel/
+
+# Local binaries
+*.exe

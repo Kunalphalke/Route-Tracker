@@ -1,1 +1,22 @@
-﻿export function setupAutocomplete(input,cities,pick){let list=document.createElement('div');list.className='suggestions';input.parentNode.append(list);input.oninput=()=>{let q=input.value.toLowerCase();list.innerHTML='';if(!q)return;cities.filter(c=>c.name.toLowerCase().includes(q)).slice(0,7).forEach(c=>{let b=document.createElement('button');b.textContent=c.name;b.onclick=()=>{input.value=c.name;list.innerHTML='';pick(c.name)};list.append(b)})};input.onblur=()=>setTimeout(()=>list.innerHTML='',150)}export const formatHours=h=>`${Math.floor(h)}h ${Math.round((h%1)*60)}m`;
+﻿export function setupAutocomplete(input, cities, onPick) {
+    const list = document.createElement("div");
+    list.className = "suggestions";
+    input.parentNode.append(list);
+    input.addEventListener("input", () => {
+        const query = input.value.trim().toLowerCase();
+        list.innerHTML = "";
+        if (!query) return;
+        cities.filter(city => city.name.toLowerCase().includes(query)).slice(0, 7).forEach(city => {
+            const option = document.createElement("button");
+            option.textContent = city.name;
+            option.onclick = () => { input.value = city.name; list.innerHTML = ""; onPick(); };
+            list.append(option);
+        });
+    });
+    input.addEventListener("blur", () => setTimeout(() => { list.innerHTML = ""; }, 150));
+}
+
+export function formatHours(hours) {
+    const totalMinutes = Math.round(hours * 60);
+    return `${Math.floor(totalMinutes / 60)}h ${totalMinutes % 60}m`;
+}

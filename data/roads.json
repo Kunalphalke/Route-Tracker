@@ -1,6 +1,15 @@
-{
-  "description":"Representative inter-city highway corridors. Attributes are generated deterministically from each corridor segment for simulation.",
-  "corridors":[
+﻿{
+  "description": "Representative inter-city highway corridors with selected calibrated road segments.",
+  "roadOverrides": {
+    "Guwahati|Shillong": { "km": 98, "speed": 45, "toll": 0, "traffic": 0.42 },
+    "Delhi|Jaipur": { "km": 281, "speed": 75, "toll": 300, "traffic": 0.72 },
+    "Agra|Delhi": { "km": 233, "speed": 78, "toll": 245, "traffic": 0.58 },
+    "Mumbai|Pune": { "km": 150, "speed": 65, "toll": 320, "traffic": 0.88 },
+    "Bengaluru|Chennai": { "km": 350, "speed": 72, "toll": 310, "traffic": 0.70 },
+    "Hyderabad|Vijayawada": { "km": 275, "speed": 72, "toll": 220, "traffic": 0.62 },
+    "Kochi|Thiruvananthapuram": { "km": 205, "speed": 55, "toll": 110, "traffic": 0.66 }
+  },
+  "corridors": [
     ["Srinagar","Jammu","Amritsar","Chandigarh","Delhi","Agra","Lucknow","Prayagraj","Varanasi","Patna","Kolkata"],
     ["Delhi","Jaipur","Udaipur","Ahmedabad","Vadodara","Surat","Mumbai","Pune","Bengaluru","Chennai"],
     ["Delhi","Dehradun","Meerut","Bareilly","Lucknow"], ["Jaipur","Jodhpur","Bikaner","Hisar","Delhi"],

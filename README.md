@@ -1,50 +1,50 @@
-﻿# RouteFlow — India Route Intelligence
+﻿# RouteFlow — Route Intelligence for India
 
-A placement-ready route-planning demonstrator that pairs a modular C++ graph engine with a Leaflet web client. The shipped network contains **108 Indian cities** and representative highway corridors, with deterministic traffic/toll simulation for repeatable demonstrations.
+A modular route-planning application with a DSA graph demonstrator, a Leaflet frontend, live-weather support, and an optional secure live-traffic integration.
 
-## Highlights
+## Live-data architecture
 
-- Autocomplete city search, animated Leaflet route, city/road tooltips, responsive glassmorphism UI, and dark mode.
-- Fastest, shortest-distance, lowest-fuel-cost, and lowest-toll objectives.
-- Dijkstra, A*, BFS, DFS, and Bellman-Ford selectable in the browser, with route-level metrics and stated complexity.
-- Instant traffic and weather recalculation; rain, fog, and storm increase travel-time edge weights.
-- Fuel and toll estimates, recent-search persistence, and random road closures with automatic rerouting.
-- C++ graph core separated by responsibility: `graph.*`, `algorithms.*`, and `traffic.*`.
+- `api/route.js`: Vercel Function that calls Google Maps Routes API with `TRAFFIC_AWARE_OPTIMAL`. The Google key stays on Vercel and is never sent to the browser.
+- `api/weather.js`: Vercel Function that fetches current weather model observations from Open-Meteo.
+- `services/liveRouteService.js` and `services/weatherService.js`: Browser-facing service clients.
+- The graph engine is always available as a fallback for Dijkstra, A*, BFS, DFS, and Bellman-Ford demonstrations.
 
-## Structure
+## Configure genuine live traffic
 
-```
-data/cities.json       City coordinates (108 cities)
-data/roads.json        Highway corridor definitions
-graph.h / graph.cpp    Graph model and network construction
-algorithms.h/.cpp      Route result, routing algorithms, statistics
-traffic.h/.cpp         Traffic/weather edge weighting
-map.js                 Leaflet rendering and route animation
-ui.js                  Autocomplete and formatting
-traffic.js             UI traffic/weather labels
-algorithms.js          Browser routing engine and metrics
-app.js                 Application orchestration
-```
+1. In Google Cloud, enable **Routes API** and billing.
+2. Create a restricted server API key.
+3. In Vercel → Project → Settings → Environment Variables, add:
 
-## Run the web app
+   ```text
+   GOOGLE_MAPS_API_KEY = your key
+   ```
 
-Serve the directory because browsers block `fetch()` from `file://` pages:
+   Select Production, Preview, and Development. Never put this value in source code or `.env` files committed to Git.
+4. Deploy again. In **Fastest** mode, the app calls `/api/route`, shows Google road distance / traffic ETA / polyline, and labels the result “Live traffic route”.
 
-```bash
-python -m http.server 8080
-```
+Without the environment variable or on a simple local Python server, the application deliberately shows the DSA graph fallback instead.
 
-Open `http://localhost:8080`.
+## Folder structure
 
-## Run the C++ demo
-
-```bash
-g++ -std=c++17 -Wall -Wextra route_tracker.cpp graph.cpp algorithms.cpp traffic.cpp -o route_tracker
-./route_tracker
+```text
+api/                    Secure Vercel serverless endpoints
+services/               Live route and weather clients
+data/                   City and graph corridor data
+algorithms.js           Browser graph algorithm implementation
+map.js                  Leaflet layers, tooltips, animations and polylines
+ui.js                   Autocomplete and formatting helpers
+app.js                  Application orchestration
+*.cpp / *.h             Modular C++ graph engine
 ```
 
-The console demo asks for city indices and traffic intensity. The web client is intentionally self-contained: it uses the same adjacency-list model and weight formula to keep its UI immediately interactive without a server API.
+## Local run
 
-## Weight model
+```powershell
+py -3 -m http.server 8080
+```
 
-Fastest routing uses `distance / speed × traffic multiplier × weather multiplier`. Fuel and toll modes use their respective edge economics; all modes exclude closed roads. This makes closures, traffic, and weather change the route rather than merely the displayed ETA.
+Open `http://localhost:8080`. Live Vercel functions require deployment; the graph fallback works locally.
+
+## Deploy
+
+Import the GitHub repository into Vercel. Vercel automatically deploys `index.html` and exposes each file under `api/` as a serverless endpoint. Configure the environment variable before relying on live traffic.
