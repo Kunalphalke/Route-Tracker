@@ -1,0 +1,16 @@
+{
+  "description":"Representative inter-city highway corridors. Attributes are generated deterministically from each corridor segment for simulation.",
+  "corridors":[
+    ["Srinagar","Jammu","Amritsar","Chandigarh","Delhi","Agra","Lucknow","Prayagraj","Varanasi","Patna","Kolkata"],
+    ["Delhi","Jaipur","Udaipur","Ahmedabad","Vadodara","Surat","Mumbai","Pune","Bengaluru","Chennai"],
+    ["Delhi","Dehradun","Meerut","Bareilly","Lucknow"], ["Jaipur","Jodhpur","Bikaner","Hisar","Delhi"],
+    ["Agra","Gwalior","Bhopal","Nagpur","Hyderabad","Vijayawada","Visakhapatnam","Srikakulam"],
+    ["Indore","Bhopal","Jabalpur","Ranchi","Jamshedpur","Kolkata"], ["Raipur","Bilaspur","Sambalpur","Bhubaneswar","Cuttack","Puri"],
+    ["Mumbai","Nashik","Aurangabad","Nanded","Hyderabad"], ["Pune","Solapur","Kurnool","Tirupati","Chennai"],
+    ["Pune","Satara","Sangli","Kolhapur","Belagavi","Hubballi","Mangaluru","Kozhikode","Kochi","Thiruvananthapuram"],
+    ["Bengaluru","Mysuru","Coimbatore","Madurai","Tiruchirappalli","Salem","Vellore","Chennai"],
+    ["Kolkata","Durgapur","Asansol","Dhanbad","Ranchi"], ["Siliguri","Gangtok","Darjeeling","Guwahati","Shillong","Agartala","Aizawl","Imphal","Kohima","Itanagar"],
+    ["Nagpur","Amravati","Akola","Nizamabad","Hyderabad"], ["Goa","Belagavi","Pune"], ["Bhubaneswar","Rourkela","Ranchi"],
+    ["Mumbai","Thane","Nashik"], ["Ahmedabad","Rajkot","Jamnagar"], ["Vadodara","Bhavnagar","Rajkot"], ["Vijayawada","Rajahmundry","Visakhapatnam"]
+  ]
+}

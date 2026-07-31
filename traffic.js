@@ -1,0 +1,1 @@
+﻿export const trafficLabel=v=>v<30?'Light flow':v<65?'Normal flow':'Heavy congestion';export const weatherNotice=w=>({clear:'Clear roads',rain:'Rain: +18% travel time',fog:'Fog: +32% travel time',storm:'Storm: +55% travel time'})[w];
